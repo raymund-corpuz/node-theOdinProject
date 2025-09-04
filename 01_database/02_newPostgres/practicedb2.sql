@@ -127,16 +127,33 @@ SELECT AVG(num_legs) FROM family_members;
 --Can you find the highest num_books_read that a family member makes?
 SELECT MIN(num_legs) FROM family_members;
 
+--Can you return the family members that have the highest num_books_read?
+SELECT * FROM family_members WHERE num_legs = (SELECT MIN(num_legs) FROM family_members);
 
+--Can you return a list of celebrities that were born after September 1st, 1980?
+SELECT * FROM celebs_born WHERE birthdate < '1985-08-17';
 
+--Can you use an inner join to pair each character name with the actor who plays them? Select the columns: character.name, character_actor.actor_name
+SELECT character.name, character_tv_show.tv_show_name
+FROM character
+INNER JOIN character_tv_show
+ON character.id = character_tv_show.character_id;
 
+--Can you use two joins to pair each character name with the actor who plays them? Select the columns: character.name, actor.name
+SELECT character.name, tv_show.name
+FROM character
+INNER JOIN character_tv_show
+ON character.id = character_tv_show.character_id
+INNER JOIN tv_show
+ON character_tv_show.tv_show_id = tv_show.id;
 
-
-
-
-
-
-
+--Can you return a list of characters and TV shows that are not named "Willow Rosenberg" and not in the show "How I Met Your Mother"?
+SELECT character.name, tv_show.name
+FROM character
+INNER JOIN character_tv_show
+ON character.id = character_tv_show.character_id
+INNER JOIN tv_show
+ON character_tv_show.tv_show_id = tv_show.id WHERE character.name != 'Barney Stinson' AND tv_show.name != 'Buffy the Vampire Slayer';
 
 
 
