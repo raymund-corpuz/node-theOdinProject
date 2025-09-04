@@ -198,3 +198,14 @@ ON r1.defeats_id = r2.id;
 
 --Can you run a query that returns "Robot" followed by a year between 2000 and 2099? (So 2015 is a valid value at the end, but 2123 is not.
 SELECT * FROM robots WHERE name LIKE "%Robot%"
+
+--Can you return the results with a column named sound that returns "talk" for humans, "bark" for dogs, and "meow" for cats
+SELECT *,
+CASE WHEN species = 'human' THEN 2 ELSE 4 END AS num_legs
+FROM friends_of_pickles;
+
+--Can you return all of the robots that are located in NY?
+SELECT * FROM robots WHERE SUBSTR(name, -4) LIKE '20__';
+
+--Could you find each fighter's weapon in that scenario
+SELECT name, COALESCE(gun, sword) AS weapon FROM fighters;
