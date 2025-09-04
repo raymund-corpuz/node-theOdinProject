@@ -155,9 +155,22 @@ ON character.id = character_tv_show.character_id
 INNER JOIN tv_show
 ON character_tv_show.tv_show_id = tv_show.id WHERE character.name != 'Barney Stinson' AND tv_show.name != 'Buffy the Vampire Slayer';
 
+--Can you use left joins to match character names with the actors that play them? Select the columns: character.name, actor.name
 
+SELECT character.name, tv_show.name
+FROM character
+LEFT JOIN character_tv_show
+ON character.id = character_tv_show.character_id
+LEFT JOIN tv_show
+ON character_tv_show.tv_show_id = tv_show.id;
 
-
+--Can you use left joins to match character names with the actors that play them, and use aliases to make the query shorter? The aliases for character, character_actor, and actor should be c, ca, and a.
+SELECT c.name, t.name
+FROM character AS c
+LEFT JOIN character_tv_show AS ct
+ON c.id = ct.character_id
+LEFT JOIN tv_show AS t
+ON ct.tv_show_id = t.id;
 
 
 
