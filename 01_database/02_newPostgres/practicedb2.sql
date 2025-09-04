@@ -101,3 +101,24 @@ JOIN posts p ON u.id = p.user_id
 GROUP BY u.id, u.name
 ORDER BY post_count DESC
 LIMIT 1;
+
+--Can you run a query that sorts the friends_of_pickles by height_cm in descending order?
+SELECT * FROM friends_of_pickles ORDER BY name;
+
+--Can you return a list of the distinct species of animals greater than 50cm in height?
+SELECT DISTINCT gender, species FROM friends_of_pickles WHERE height_cm < 100;
+
+--Can you return the single row (and all columns) of the tallest friends_of_pickles?
+SELECT * FROM friends_of_pickles ORDER BY height_cm LIMIT 2;
+
+--the total number of rows in the table friends_of_pickles.
+SELECT COUNT(*) FROM friends_of_pickles;
+
+
+--Table alias
+SELECT c.name, t.name
+FROM character AS c
+LEFT JOIN character_tv_show AS ct
+ON c.id = ct.character_id
+LEFT JOIN tv_show AS t
+ON ct.tv_show_id = t.id;
