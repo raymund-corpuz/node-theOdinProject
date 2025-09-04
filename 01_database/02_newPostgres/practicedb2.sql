@@ -114,6 +114,35 @@ SELECT * FROM friends_of_pickles ORDER BY height_cm LIMIT 2;
 --the total number of rows in the table friends_of_pickles.
 SELECT COUNT(*) FROM friends_of_pickles;
 
+--Can you return the number of rows in friends_of_pickles where the species is a dog?
+SELECT COUNT(*) FROM friends_of_pickles WHERE species = 'human';
+
+--Can you find the total num_books_read made by this family?
+SELECT SUM(num_legs) FROM family_members;
+
+--Can you find the average num_books_read made by each family member?
+SELECT AVG(num_legs) FROM family_members;
+
+
+--Can you find the highest num_books_read that a family member makes?
+SELECT MIN(num_legs) FROM family_members;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --Table alias
 SELECT c.name, t.name
