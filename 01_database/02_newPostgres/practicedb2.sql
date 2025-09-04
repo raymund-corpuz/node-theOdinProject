@@ -181,3 +181,20 @@ LEFT JOIN character_tv_show AS ct
 ON c.id = ct.character_id
 LEFT JOIN tv_show AS t
 ON ct.tv_show_id = t.id;
+
+--Can you use left joins to match character names with the actors that play them, and use aliases to call the two columns returned character and actor
+SELECT character.name AS character, tv_show.name AS tv_show
+FROM character
+LEFT JOIN character_tv_show
+ON character.id = character_tv_show.character_id
+LEFT JOIN tv_show
+ON character_tv_show.tv_show_id = tv_show.id;
+
+--Can you run a query that returns the name of an employee and the name of their boss? Use column aliases to make the columns employee_name and boss_name.
+SELECT r1.name AS object, r2.name AS beats
+FROM rps AS r1
+INNER JOIN rps AS r2
+ON r1.defeats_id = r2.id;
+
+--Can you run a query that returns "Robot" followed by a year between 2000 and 2099? (So 2015 is a valid value at the end, but 2123 is not.
+SELECT * FROM robots WHERE name LIKE "%Robot%"
