@@ -127,3 +127,30 @@ SELECT name, population FROM world WHERE population > (SELECT population FROM wo
 
 --Show the name and the population of each country in Europe. Show the population as a percentage of the population of Germany.
 SELECT name, CONCAT( ROUND((population * 100)/ (SELECT population FROM world WHERE name = 'Germany'), 0),'%') AS percentage FROM world WHERE population IN (SELECT population FROM world WHERE continent = 'Europe');
+
+--Which countries have a GDP greater than every country in Europe? [Give the name only.] (Some countries may have NULL gdp values)
+SELECT name FROM world WHERE gdp > ALL( SELECT MAX(gdp)  FROM world  WHERE continent = 'Europe')
+
+--Find the largest country (by area) in each continent, show the continent, the name and the area:
+SELECT continent, name, area 
+  FROM world x
+ WHERE area >= ALL
+    (SELECT area 
+       FROM world y
+      WHERE y.continent=x.continent
+        AND area>0)
+
+--List each continent and the name of the country that comes first alphabetically.
+ SELECT x.continent, x.name FROM world x WHERE x.name <= ALL(SELECT y.name FROM world y WHERE x.continent=y.continent )ORDER BY name;
+
+
+--Find the continents where all countries have a population <= 25000000. Then find the names of the countries associated with these continents. Show name, continent and population.
+ SELECT name, continent, population FROM world w WHERE NOT EXISTS( SELECT * FROM world nx WHERE nx.continent = w.continent AND nx.population > 25000000);
+
+ --Some countries have populations more than three times that of all of their neighbours (in the same continent). Give the countries and continents.
+
+ SELECT x.name, x.continent
+  FROM world x
+  WHERE x.population >ALL(SELECT population*3
+ FROM world y WHERE y.continent = x.continent
+ =AND x.name<>y.name)
