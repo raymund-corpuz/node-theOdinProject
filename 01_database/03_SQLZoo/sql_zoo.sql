@@ -110,3 +110,20 @@ SELECT * FROM nobel WHERE yr = 1980 AND subject NOT IN ('chemistry', 'medicine')
 --Show year, subject, and name of people who won a 'Medicine' prize in an early year (before 1910, not including 1910) together with winners of a 'Literature' prize in a later year (after 2004, including 2004)
 SELECT yr, subject, winner FROM nobel WHERE 
 (subject = 'medicine' AND yr < 1910) OR ( subject = 'Literature' AND yr >= 2004);
+
+
+--List each country name where the population is larger than that of 'Russia'.
+SELECT name FROM world WHERE population > (SELECT population FROM world WHERE name = 'Russia');
+
+--Show the countries in Europe with a per capita GDP greater than 'United Kingdom'.
+SELECT name  FROM world WHERE continent = 'Europe' AND gdp/population > (SELECT gdp/population FROM world WHERE name = 'United Kingdom');
+
+--List the name and continent of countries in the continents containing either Argentina or Australia. Order by name of the country.
+SELECT name, continent FROM world WHERE continent IN (SELECT continent FROM world WHERE name IN ('Argentina', 'Australia') )ORDER BY name
+
+--Which country has a population that is more than United Kingdom but less than Germany? Show the name and the population.
+
+SELECT name, population FROM world WHERE population > (SELECT population FROM world WHERE name = 'United Kingdom') AND population < (SELECT population FROM world WHERE name = 'Germany');
+
+--Show the name and the population of each country in Europe. Show the population as a percentage of the population of Germany.
+SELECT name, CONCAT( ROUND((population * 100)/ (SELECT population FROM world WHERE name = 'Germany'), 0),'%') AS percentage FROM world WHERE population IN (SELECT population FROM world WHERE continent = 'Europe');
