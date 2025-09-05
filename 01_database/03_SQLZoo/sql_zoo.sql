@@ -59,3 +59,33 @@ SELECT name, capital FROM world WHERE LENGTH(name) = LENGTH(capital);
 --Show the name and the capital where the first letters of each match. Don't include countries where the name and the capital are the same word.
 SELECT name, capital
 FROM world WHERE LEFT(name,1) = LEFT(capital, 1) AND name <> capital;
+
+--Find the country that has all the vowels and no spaces in its name.
+SELECT name FROM world
+WHERE
+name LIKE '%a%' AND
+name LIKE '%e%' AND
+name LIKE '%i%' AND
+name LIKE '%o%' AND
+name LIKE '%u%' AND
+
+name NOT LIKE '% %';
+
+--Change the query shown so that it displays Nobel prizes for 1950.
+
+SELECT yr, subject, winner
+  FROM nobel
+ WHERE yr = 1950
+
+ --Show who won the 1962 prize for literature.
+ SELECT winner
+  FROM nobel
+ WHERE yr = 1962
+   AND subject = 'literature'
+
+--Show the year and subject that won 'Albert Einstein' his prize.
+
+SELECT yr, subject FROM nobel WHERE winner = 'Albert Einstein';
+
+--Give the name of the 'peace' winners since the year 2000, including 2000.
+SELECT winner FROM nobel WHERE subject = 'Peace' AND yr >= 2000;
