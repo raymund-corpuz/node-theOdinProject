@@ -124,6 +124,19 @@ app.post("/items", (req, res) => {
   //res.send(200).json(newItem);
 });
 
+// ✅ DELETE item by ID
+app.delete("/items/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = items.findIndex((item) => item.id === id);
+
+  if (index === -1) {
+    return res.status(404).res.json({ error: "Item not found" });
+  }
+
+  const deletedItem = items.splice(index, 1);
+  res.json({ message: "Item deleted", item: deletedItem[0] });
+});
+
 app.listen(PORT, (req, res) => {
   console.log(`Server is running http://localhost:${PORT}`);
 });
