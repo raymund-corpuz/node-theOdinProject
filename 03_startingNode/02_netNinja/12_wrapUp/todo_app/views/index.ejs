@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>To-Do App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 2rem auto;
+      }
+      form {
+        margin-bottom: 1rem;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin: 0.5rem 0;
+      }
+      button {
+        margin-left: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📝 To-Do App</h1>
+
+    <form action="/add" method="POST">
+      <input type="text" name="task" placeholder="New task..." required />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul>
+      <% todos.forEach(todo => { %>
+      <li>
+        <%= todo.task %>
+        <form
+          action="/delete/<%= todo._id %>"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">❌ Delete</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
