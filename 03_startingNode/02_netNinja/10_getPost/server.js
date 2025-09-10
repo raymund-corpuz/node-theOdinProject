@@ -105,10 +105,12 @@ app.get("/", (req, res) => {
   res.send("Welcome to Home Page");
 });
 
+// ✅ GET all items
 app.get("/items", (req, res) => {
   res.json(items);
 });
 
+// ✅ POST new item
 app.post("/items", (req, res) => {
   const { name } = req.body;
   if (!name) return res.status(404).json({ error: "Name is required" }); // missing
