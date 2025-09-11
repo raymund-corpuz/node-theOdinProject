@@ -44,15 +44,50 @@
 //   res.redirect("/");
 // };
 
+// const Todo = require("../models/todoModel");
+
+// exports.getTodos = async (req, res) => {
+//   try {
+//     const todos = await Todo.find();
+//     res.render("index", { todos });
+//   } catch (err) {
+//     console.error("Error fetching todos: ", err);
+//     res.status(500).send("Server error");
+//   }
+// };
+
+// exports.addTodo = async (req, res) => {
+//   try {
+//     const { task } = req.body;
+
+//     if (!task) return res.redirect("/");
+//     await Todo.create({ task });
+//     res.redirect("/");
+//   } catch (err) {
+//     console.error("Error adding todo:", err);
+//     res.status(500).send("Server error");
+//   }
+// };
+
+// exports.deleteTodo = async (req, res) => {
+//   try {
+//     const deleted = await Todo.findByIdAndDelete(req.params.id);
+//     res.redirect("/");
+//   } catch (err) {
+//     console.error("Error deleting", err);
+//     res.status(500).send("Server error");
+//   }
+// };
+
 const Todo = require("../models/todoModel");
 
 exports.getTodos = async (req, res) => {
   try {
     const todos = await Todo.find();
+
     res.render("index", { todos });
   } catch (err) {
-    console.error("Error fetching todos: ", err);
-    res.status(500).send("Server error");
+    console.error("Error occured", err);
   }
 };
 
@@ -61,20 +96,19 @@ exports.addTodo = async (req, res) => {
     const { task } = req.body;
 
     if (!task) return res.redirect("/");
+
     await Todo.create({ task });
     res.redirect("/");
   } catch (err) {
-    console.error("Error adding todo:", err);
-    res.status(500).send("Server error");
+    console.error("Error occured", err);
   }
 };
 
 exports.deleteTodo = async (req, res) => {
   try {
-    const deleted = await Todo.findByIdAndDelete(req.params.id);
+    await Todo.findByIdAndDelete(req.params.id);
     res.redirect("/");
   } catch (err) {
-    console.error("Error deleting", err);
-    res.status(500).send("Server error");
+    console.error("Error occured", err);
   }
 };
