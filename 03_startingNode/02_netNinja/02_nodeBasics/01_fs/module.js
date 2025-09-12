@@ -18,21 +18,32 @@ const fs = require("fs");
 //   console.log("Data is Updated!");
 // });
 
+// //Add files
+
+// if (!fs.existsSync("./assets")) {
+//   fs.mkdir("./assets", (err) => {
+//     if (err) {
+//       console.error(`Can't create a folder`, err);
+//     }
+
+//     console.log("Folder is created");
+//   });
+// } else {
+//   fs.rmdir("./assets", (err) => {
+//     if (err) {
+//       console.error(`Can't delete the folder`, err);
+//     }
+//     console.log(" Folder is removed");
+//   });
+// }
+
 //delete files
-
-if (!fs.existsSync("./assets")) {
-  fs.mkdir("./assets", (err) => {
+if (fs.existsSync("./someData/deleteme.txt")) {
+  fs.unlink("./someData/deleteme.txt", (err) => {
     if (err) {
-      console.error(`Can't create a folder`, err);
+      console.error("Cant delete the file");
     }
 
-    console.log("Folder is created");
-  });
-} else {
-  fs.rmdir("./assets", (err) => {
-    if (err) {
-      console.error(`Can't delete the folder`, err);
-    }
-    console.log(" Folder is removed");
+    console.log("File is deleted");
   });
 }
