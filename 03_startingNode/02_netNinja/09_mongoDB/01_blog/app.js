@@ -23,67 +23,54 @@ mongoose
 //register view engine
 app.set("view engine", "ejs");
 
+// app.get("/add-blog", (req, res) => {
+//   const blog = new Blog({
+//     title: "Harley Butter",
+//     snippet: "About Harley",
+//     body: "Harley Butter and the Philosopher Stone",
+//   });
+
+//   blog
+//     .save()
+//     .then((results) => {
+//       res.send(results);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
+
+// app.get("/all-blog", (req, res) => {
+//   Blog.find()
+//     .then((result) => {
+//       res.send(result);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
+
+// app.get("/single-blog", (req, res) => {
+//   Blog.findById("68c7bd60bcb1fa3bfd404fc6")
+//     .then((result) => {
+//       res.send(result);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
+
 ////////////////////////
 //Render EJS FILES   //
 //////////////////////
 
-app.get("/add-blog", (req, res) => {
-  const blog = new Blog({
-    title: "Harley Butter",
-    snippet: "About Harley",
-    body: "Harley Butter and the Philosopher Stone",
-  });
-
-  blog
-    .save()
-    .then((results) => {
-      res.send(results);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/all-blog", (req, res) => {
-  Blog.find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/single-blog", (req, res) => {
-  Blog.findById("68c7bd60bcb1fa3bfd404fc6")
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
 //middlewares
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  const blogs = [
-    {
-      title: "Youshi finds eggs",
-      snippet: "Lorem ispsum folor sit amet consectetur",
-    },
-    {
-      title: "Mario finds star",
-      snippet: "Lorem ispsum folor sit amet consectetur",
-    },
-    {
-      title: "How to defeat browser",
-      snippet: "Lorem ispsum folor sit amet consectetur",
-    },
-  ];
+//routes
 
-  res.render("index", { title: "Home", blogs });
+app.get("/", (req, res) => {
+  res.redirect("/blog");
 });
 
 // app.use((req, res, next) => {
@@ -93,6 +80,18 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
+});
+
+//blog routes
+app.get("/blog", (req, res) => {
+  Blog.find()
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      res.render("index", { title: "All Blogs", blogs: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.get("/blogs/create", (req, res) => {
