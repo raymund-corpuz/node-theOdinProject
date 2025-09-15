@@ -1,5 +1,23 @@
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
+
+//connect to mongoDB
+const dB_URI =
+  "mongodb+srv://raymundcorpuz86_db_user:ray123456789@nodetuts.7pmkm7g.mongodb.net/?retryWrites=true&w=majority&appName=nodetuts";
+
+mongoose
+  .connect(dB_URI)
+  .then((results) => {
+    app.listen(8080, () => {
+      console.log("Server is running at http://localhost:8080");
+    });
+
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 //register view engine
 app.set("view engine", "ejs");
@@ -7,6 +25,8 @@ app.set("view engine", "ejs");
 ////////////////////////
 //Render EJS FILES   //
 //////////////////////
+
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   const blogs = [
@@ -27,6 +47,11 @@ app.get("/", (req, res) => {
   res.render("index", { title: "Home", blogs });
 });
 
+// app.use((req, res, next) => {
+//   console.log("in the next middleware");
+//   next();
+// });
+
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
@@ -37,10 +62,6 @@ app.get("/blogs/create", (req, res) => {
 
 app.use((req, res) => {
   res.render("404", { title: "404" });
-});
-
-app.listen(8080, () => {
-  console.log(`Server is running at http://localhost:8080`);
 });
 
 //////////////////////////
