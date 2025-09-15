@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog Ninja</title>
+    <title>Blog Ninja | <%= title %></title>
   </head>
   <body>
     <nav>
@@ -20,6 +20,13 @@
 
     <div>
       <h2>All Blogs</h2>
+
+      <% if(blogs.length > 0){ %> <%blogs.forEach((blog)=>{ %>
+      <h3><%= blog.title %></h3>
+      <p><%= blog.body %></p>
+      <% }) %> <% } else{ %>
+      <p>No Blogs to Display</p>
+      <% } %>
     </div>
   </body>
 </html>
