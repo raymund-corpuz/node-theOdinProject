@@ -66,11 +66,12 @@ app.set("view engine", "ejs");
 
 //middlewares
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 //routes
 
 app.get("/", (req, res) => {
-  res.redirect("/blog");
+  res.redirect("/blogs");
 });
 
 // app.use((req, res, next) => {
@@ -83,11 +84,28 @@ app.get("/about", (req, res) => {
 });
 
 //blog routes
-app.get("/blog", (req, res) => {
+app.get("/blogs", (req, res) => {
   Blog.find()
     .sort({ createdAt: -1 })
     .then((result) => {
       res.render("index", { title: "All Blogs", blogs: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// blog POST
+
+app.post("/blogs", (req, res) => {
+  console.log(req.body);
+
+  const blog = new Blog(req.body);
+
+  blog
+    .save()
+    .then((result) => {
+      res.redirect("/blogs");
     })
     .catch((err) => {
       console.log(err);
