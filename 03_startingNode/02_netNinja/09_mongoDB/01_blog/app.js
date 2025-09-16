@@ -67,6 +67,7 @@ app.set("view engine", "ejs");
 //middlewares
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 //routes
 
@@ -109,6 +110,34 @@ app.post("/blogs", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+    });
+});
+
+// app.get("/blogs/:id", (req, res) => {
+//   const blogId = req.params.id;
+
+//   Blog.findById(blogId)
+//     .then((result) => {
+//       res.render("details", { blog: result, title: "Blog Details" });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
+
+app.get("/blogs/:id", (req, res) => {
+  const blogId = req.params.id; // keep it as string
+
+  Blog.findById(blogId)
+    .then((result) => {
+      if (!result) {
+        return res.status(404).render("404", { title: "Blog not found" });
+      }
+      res.render("details", { blog: result, title: "Blog Details" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("Something went wrong");
     });
 });
 
