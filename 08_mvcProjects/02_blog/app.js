@@ -1,16 +1,21 @@
-const express = require("express");
-const postRoute = require("./routes/postRoutes");
-const app = express();
+const express = require("express"); //correct
+const postRoute = require("./routes/postRoutes"); //correct
+const app = express(); //correct
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080; //correct
 
-app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true })); //to parse form data
 
-app.use("/posts", postRoute);
+app.set("view engine", "ejs"); //correct
+
+app.use("/posts", postRoute); //correct
+
 app.use("/", (req, res) => {
+  //correct
   res.redirect("/posts");
 });
 
 app.listen(PORT, () => {
+  // correct
   console.log(`🚀 Server is Running at http://localhost:${PORT}`);
 });

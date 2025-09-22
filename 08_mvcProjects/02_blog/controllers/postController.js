@@ -1,4 +1,5 @@
 // ==== const express = require("express"); // remove
+/* 
 let posts = require("../models/Post");
 
 function getAllPosts(req, res) {
@@ -69,5 +70,67 @@ module.exports = {
   getPostById,
   updatePost,
   createPost,
+  deletePost,
+};
+ 
+*/
+
+// controllers/postController.js
+let posts = require("../models/Post");
+
+const getAllPosts = (req, res) => {
+  res.render("posts/index", { posts });
+};
+
+const getPostById = (req, res) => {
+  const id = parseInt(req.params.id);
+  const post = posts.find((p) => p.id === id);
+
+  if (!post) {
+    return res.status(404).send("Post not found");
+  }
+
+  res.render("posts/show", { post });
+};
+
+const createPost = (req, res) => {
+  const { title, content, author } = req.body;
+  const newPost = {
+    id: posts.length ? posts[posts.length - 1].id + 1 : 1,
+    title,
+    content,
+    author,
+  };
+  posts.push(newPost);
+  res.redirect("/posts");
+};
+
+const updatePost = (req, res) => {
+  const id = parseInt(req.params.id);
+  const post = posts.find((p) => p.id === id);
+
+  if (!post) {
+    return res.status(404).send("Post not found");
+  }
+
+  const { title, content, author } = req.body;
+  post.title = title || post.title;
+  post.content = content || post.content;
+  post.author = author || post.author;
+
+  res.redirect(`/posts/${id}`);
+};
+
+const deletePost = (req, res) => {
+  const id = parseInt(req.params.id);
+  posts = posts.filter((p) => p.id !== id);
+  res.redirect("/posts");
+};
+
+module.exports = {
+  getAllPosts,
+  getPostById,
+  createPost,
+  updatePost,
   deletePost,
 };

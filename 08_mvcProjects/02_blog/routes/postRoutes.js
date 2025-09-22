@@ -1,12 +1,14 @@
-const express = require("express");
-const postController = require("../controllers/postController");
+const express = require("express"); // correct
+const postController = require("../controllers/postController"); // correct
 
-const router = express.Router();
+const router = express.Router(); //correct
 
-router.get("/", postController.getAllPost);
+router.get("/", postController.getAllPosts);
 router.get("/:id", postController.getPostById);
 router.post("/", postController.createPost);
-router.put("/:id", postController.updatePost);
-router.delete("/:id", postController.deletePost);
+// using POST instead of PUT (easier with forms)
+router.put("/:id/update", postController.updatePost);
+// using POST instead of DELETE (easier with forms)
 
+router.delete("/:id/delete", postController.deletePost);
 module.exports = router;
