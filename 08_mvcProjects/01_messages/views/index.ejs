@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Messages</title>
+  </head>
+  <body>
+    <h1>All Messages</h1>
+    <ul>
+      <% messages.forEach(msg => { %>
+      <li><%= msg.text %></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
