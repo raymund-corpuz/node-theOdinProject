@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Messages</title>
+  </head>
+  <body>
+    <h1>All Messages</h1>
+    <ul>
+      <% messages.forEach(msg => { %>
+      <li>
+        <a href="/messages/<%= msg.id %>"><%= msg.text %></a>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
