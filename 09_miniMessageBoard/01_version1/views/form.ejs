@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><% title %></title>
+  </head>
+  <body>
+    <h2>Create New Message Here</h2>
+    <form method="POST" action="/new">
+      <input
+        type="text"
+        name="user"
+        placeholder="Enter your name here..."
+        required
+      />
+      <input
+        type="text"
+        name="text"
+        placeholder="Enter your text here..."
+        required
+      />
+
+      <button>submit</button>
+    </form>
+  </body>
+</html>
