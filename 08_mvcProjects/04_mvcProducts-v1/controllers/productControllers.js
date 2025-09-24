@@ -29,7 +29,7 @@ async function createProduct(req, res) {
     if (!name || !price || !description)
       return res.status(404).json({ message: "All Fields are Required" });
 
-    await Product.create(name, price, description);
+    await Product.create({ name, price, description });
 
     res.redirect("/products");
   } catch (error) {
@@ -40,18 +40,21 @@ async function createProduct(req, res) {
 async function updateProduct(req, res) {
   try {
     const id = req.params.id;
+    const { name, price, description } = req.body;
 
-    const product = await Product.findByIdAndUpdate(id);
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        name,
+        price,
+        description,
+      },
+      { new: true, runValidators: true }
+    );
 
     if (!product) return res.status(404).json({ message: "Product Not Found" });
 
-    const { name, price, description } = req.body;
-
-    if (name) product.name = name;
-    if (price) product.price = price;
-    if (description) product.name = name;
-
-    res.redirect("/products/$(product._id)");
+    res.redirect("/products/${product._id}");
   } catch (error) {
     res.status(500).json({ message: "Failed to Connect ❌" });
   }
@@ -61,6 +64,9 @@ async function deleteProduct(req, res) {
   try {
     const id = req.params.id;
     const product = await Product.findByIdAndDelete(id);
+
+    //missing
+    if (!product) return res.status(404).json({ message: "Product Not Found" });
 
     res.redirect("/products");
   } catch (error) {
