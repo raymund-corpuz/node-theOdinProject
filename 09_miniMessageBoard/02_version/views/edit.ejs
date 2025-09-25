@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h2><%= title %></h2>
+
+    <form action="/messages/<%= message.id %>?_method=PUT" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" value="<%= message.name%>" name="name" required />
+      <br />
+      <br />
+      <label for="text">Text:</label>
+      <input
+        type="text"
+        value="<%= message.text %>"
+        name="text"
+        required
+      /><br />
+      <br />
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
