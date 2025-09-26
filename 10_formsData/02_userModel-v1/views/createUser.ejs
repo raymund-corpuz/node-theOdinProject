@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1>Create User</h1>
+
+    <%- include("partials/errors", { errors }) %>
+
+    <form action="/create" method="POST">
+      <label>First Name:</label>
+      <input
+        type="text"
+        name="firstName"
+        value="<%= oldInput.firstName || '' %>"
+        required
+      />
+
+      <label>Last Name:</label>
+      <input
+        type="text"
+        name="lastName"
+        value="<%= oldInput.lastName || '' %>"
+        required
+      />
+
+      <label>Age (optional):</label>
+      <input
+        type="number"
+        name="age"
+        min="18"
+        max="120"
+        value="<%= oldInput.age || '' %>"
+      />
+
+      <label>Bio (optional):</label>
+      <textarea name="bio" maxlength="200"><%= oldInput.bio || '' %></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <a href="/">Back to list</a>
+  </body>
+</html>
