@@ -1,22 +1,51 @@
+// class PostStorage {
+//   constructor() {
+//     this.posts = {};
+//     this.idCounter = 1;
+//   }
+
+//   addPost(postData) {
+//     const post = { id: this.idCounter, ...postData };
+//     this.posts[this.idCounter] = post;
+//     this.idCounter++;
+//     return post;
+//   }
+
+//   getAllPost() {
+//     // return post newest first
+//     return Object.values(this.posts).sort(a, (b) => b.id - a.id);
+//   }
+
+//   getPost(id) {
+//     return this.posts[id];
+//   }
+// }
+
+//=========== Re-create =====================
+
 class PostStorage {
   constructor() {
     this.posts = {};
     this.idCounter = 1;
   }
 
-  addPost(postData) {
-    const post = { id: this.idCounter, ...postData };
+  addPost(newPost) {
+    const post = { id: this.idCounter, ...newPost };
+
     this.posts[this.idCounter] = post;
+
     this.idCounter++;
+
     return post;
   }
 
   getAllPost() {
-    // return post newest first
-    return Object.values(this.posts).sort(a, (b) => b.id - a.id);
+    return Object.values(this.posts).sort((a, b) => b.id - a.id);
   }
 
   getPost(id) {
     return this.posts[id];
   }
 }
+
+module.exports = new PostStorage();
