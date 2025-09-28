@@ -61,7 +61,7 @@ async function registerUser(req, res) {
 
   const passwordHash = await bcrypt.hash(password, 10);
 
-  const user = UserStorage.addUser({ username, email, password });
+  const user = UserStorage.addUser({ username, email, passwordHash });
 
   // store user ID in session to keep logged in
   req.session.user = {
@@ -98,6 +98,17 @@ async function loginUser(req, res) {
       errors: [{ msg: "Invalid email or password" }],
     });
   }
+  //  =============== missing ================================
+  const match = await bcrypt.compare(password, user.passwordHash);
+
+  if (!match) {
+    return res.status(400).render("login", {
+      title: "Login",
+      errors: [{ msg: "Invalid email or password" }],
+      oldInput: req.body,
+    });
+  }
+  //  =============== missing ================================
 
   //Login successful
   req.session.user = {
