@@ -1,41 +1,52 @@
+//import bcrypt
 const bcrypt = require("bcryptjs");
+//import body , validationResult
 const { body, validationResult } = require("express-validator");
 
-const UserStorage = require("../models/UserStorage");
+//import UserStorage
+const UserStorage = require("../models/UserStorage-v1");
 
+//create registerValidation varible
 const registerValidation = [
+  //call username then validate
   body("username")
     .trim()
     .isAlpha()
     .withMessage("Username must only contain letters")
     .isLength({ min: 3, max: 15 })
-    .withMessage("Username must be 3-15 characters long"),
+    .withMessage("Username must be 3 - 15 characters long"),
+  //call email then validate
+
   body("email")
     .trim()
     .isEmail()
-    .withMessage("Enter a valid email")
+    .withMessage("Enter valid email")
     .normalizeEmail(),
+  //call password then validate
 
   body("password").trim().notEmpty().withMessage("Password is required"),
 ];
 
-//validation rules for login
+//create loginValidation var
 const loginValidation = [
+  //call email then validate
   body("email")
     .trim()
     .isEmail()
-    .withMessage("Enter a valid email")
+    .withMessage("Enter valid email")
     .normalizeEmail(),
-
+  //call password then validate
   body("password").trim().notEmpty().withMessage("Password is required"),
 ];
 
-// Show register form
+//showRegister (req, res)
 function showRegister(req, res) {
   res.render("register", { title: "Register", errors: null, oldInput: {} });
 }
 
+//registerUser (req, res) async -await
 async function registerUser(req, res) {
+  // registerUser-  error handling
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -46,24 +57,26 @@ async function registerUser(req, res) {
     });
   }
 
+  //call username, email, password - req.body
   const { username, email, password } = req.body;
 
-  // Prevent duplicate email
+  //error handling
   if (UserStorage.findByEmail(email)) {
-    return res.status(400).render({
+    return res.status(400).render("register", {
       title: "Register",
-      errors: [{ msg: "Email already registered" }],
+      errors: [{ msg: "Email is already exist" }],
       oldInput: req.body,
     });
   }
 
-  //Hash password
+  // registerUser-create var passwordhash
 
   const passwordHash = await bcrypt.hash(password, 10);
 
+  //registerUser-create var user call UserStorage- addUser
   const user = UserStorage.addUser({ username, email, password });
 
-  // store user ID in session to keep logged in
+  // registerUser-store user ID in session to keep logged in
   req.session.user = {
     id: user.id,
     username: user.username,
@@ -73,13 +86,15 @@ async function registerUser(req, res) {
   res.redirect("/");
 }
 
-// Show login form
+//showLogin(req, res)
 function showLogin(req, res) {
   res.render("login", { title: "Login", errors: null, oldInput: {} });
 }
+//showloginUser (req, res)
 
 async function loginUser(req, res) {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).render("login", {
       title: "Login",
@@ -99,7 +114,6 @@ async function loginUser(req, res) {
     });
   }
 
-  //Login successful
   req.session.user = {
     id: user.id,
     username: user.username,
@@ -109,19 +123,22 @@ async function loginUser(req, res) {
   res.redirect("/");
 }
 
-//Logout
+//logout (req, res)
+
 function logout(req, res) {
   req.session.destroy(() => {
     res.redirect("/");
   });
 }
 
+//exports
+
 module.exports = {
-  showRegister, //correct
-  showLogin, //correct
-  loginUser, //correct
-  registerUser, //correct
-  registerValidation, //correct
-  loginValidation, //correct
-  logout, //correct
+  showRegister,
+  registerUser,
+  showLogin,
+  loginUser,
+  logout,
+  registerValidation,
+  loginValidation,
 };
