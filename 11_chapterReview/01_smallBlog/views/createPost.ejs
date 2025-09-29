@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include("partials/header") %>
+
+    <h1>Create Post</h1>
+    <%- include("partials/errors", { errors: errors }) %>
+
+    <form action="/posts/create" method="POST">
+      <label>Title</label><br />
+      <input type="text" name="title" value="<%= oldInput.title || "" %>"
+      required /><br />
+
+      <label>Body</label><br />
+      <textarea name="body" rows="6" required>
+<%= oldInput.body || "" %></textarea
+      ><br />
+
+      <button type="submit">Publish</button>
+    </form>
+  </body>
+</html>
