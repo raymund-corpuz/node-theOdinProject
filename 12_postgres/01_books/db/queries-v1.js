@@ -5,11 +5,11 @@ async function getAllBooks() {
   return rows; //correct
 }
 
-async function inserBook(title) {
+async function insertBook(title) {
   await pool.query(`INSERT INTO books (title) VALUES ($1)`, [title]); //correct
 }
 
-async function deleteBooks() {
+async function deleteAllBooks() {
   await pool.query("DELECT * FROM books");
 }
 
@@ -20,4 +20,4 @@ async function searchBook(title) {
   );
   return rows;
 }
-module.exports = { getAllBooks, insertBook, deleteBooks, searchBook };
+module.exports = { getAllBooks, insertBook, deleteAllBooks, searchBook };
