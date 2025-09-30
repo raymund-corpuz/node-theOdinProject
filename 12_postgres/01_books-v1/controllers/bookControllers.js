@@ -13,11 +13,11 @@ async function listBooks(req, res) {
   res.send(books); //correct
 }
 
-async function newBookForm(req, res) {
+function newBookForm(req, res) {
   res.send(`
-        <form method="POST" action="/new'>
-        <input name="title" type="text" placeholder ="Enter Book" required />       
-        <button type="submit">Add Book</button>       
+        <form method="POST" action="/new">
+        <input type="text" name="title" placeholder="Enter book" />     
+        <button type="submit">Add Book</button>    
         </form>
         `);
 }
