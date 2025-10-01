@@ -8,11 +8,11 @@ async function getAllBooks(userId) {
   return rows;
 }
 
-async function insertBook(title, author, userId) {
-  await pool.query(
-    "INSERT INTO books (title, author,user_id) VALUES $1,$2,$3",
-    [title, author, userId]
-  );
+async function insertBook(title, author) {
+  await pool.query("INSERT INTO books (title, author) VALUES $1,$2", [
+    title,
+    author,
+  ]);
 }
 
 async function deleteAllBooks(userId) {
