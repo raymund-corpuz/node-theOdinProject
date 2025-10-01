@@ -13,15 +13,38 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// =========== missing ======================
+// Session middleware (must come before routes)
+app.use(
+  session({
+    secret: "superSecretKey", // use env variable in production
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true, // prevents client-side JS from reading cookie
+      secure: false, // set true if using HTTPS
+      maxAge: 1000 * 60 * 60, // 1 hour
+    },
+  })
+);
+
+// ===== Authentication Middleware ===== //
 function isAuthenticated(req, res, next) {
-  if (req.session.userId) {
+  if (req.session && req.session.user) {
     return next();
   }
-  res.redirect("/login");
+  res.redirect("/auth/login");
 }
 
-app.use("/auth", isAuthenticated, authRoutes);
-app.use("/", bookRoutes);
+// function isAuthenticated(req, res, next) {
+//   if (req.session.userId) {
+//     return next();
+//   }
+//   res.redirect("/login");
+// }
+
+app.use("/auth", authRoutes);
+app.use("/", isAuthenticated, bookRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`);
