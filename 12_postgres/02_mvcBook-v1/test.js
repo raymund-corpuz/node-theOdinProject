@@ -8,16 +8,15 @@ async function test() {
 }
 
 async function findUser() {
-  const USERNAME = "ray";
+  const USERNAME = "manuel";
   const user = await findUserByUsername(USERNAME);
 
   console.log(user);
 }
-
 findUser();
 
 async function cUser() {
-  const NEW_USER = "ray";
+  const NEW_USER = "manuel";
   const PASSWORD = "qwerty123";
   await createUser(NEW_USER, PASSWORD);
 
