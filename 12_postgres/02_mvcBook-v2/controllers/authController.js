@@ -71,7 +71,11 @@ async function registerPost(req, res) {
       email: user.email,
     };
 
-    res.render("login");
+    return res
+      .status(201)
+      .json({ message: "User registered successfully", user });
+
+    //res.render("login");
   } catch (error) {
     console.error("Error occured: ", error.message);
   }
@@ -141,6 +145,7 @@ function logout(req, res) {
 
 module.exports = {
   registerValidator,
+  loginValidator,
   registerGet,
   registerPost,
   loginGet,

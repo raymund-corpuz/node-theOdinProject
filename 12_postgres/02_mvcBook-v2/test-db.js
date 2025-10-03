@@ -39,7 +39,7 @@ async function testFindEmail() {
   }
 }
 
-//test();
+test();
 // testCreate();
 //testFindEmail();
 
@@ -60,5 +60,3 @@ async function testRegister() {
 
   await registerPost(req, res);
 }
-
-testRegister();
