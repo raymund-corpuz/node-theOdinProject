@@ -41,4 +41,24 @@ async function testFindEmail() {
 
 //test();
 // testCreate();
-testFindEmail();
+//testFindEmail();
+
+// ========== TEST CONTROLLERS ============================
+async function testRegister() {
+  const req = {
+    body: { username: "Alice", email: "alice@example.com", password: "123456" },
+    session: {},
+  };
+
+  const res = {
+    render: (view, data) => console.log("Render:", view, data),
+    status: function (code) {
+      this.statusCode = code;
+      return this;
+    },
+  };
+
+  await registerPost(req, res);
+}
+
+testRegister();
