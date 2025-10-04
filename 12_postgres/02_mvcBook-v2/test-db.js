@@ -1,6 +1,12 @@
 const pool = require("./db/pool");
 const { createUser, findUserByEmail } = require("./models/userModels");
-const { getAllBooks, insertNewBook } = require("./models/bookModels");
+const {
+  getAllBooks,
+  insertNewBook,
+  findOneBook,
+  updateBook,
+  deleteBookId,
+} = require("./models/bookModels");
 
 async function test() {
   try {
@@ -68,15 +74,40 @@ async function testAllBooks() {
   process.exit();
 }
 
-testAllBooks();
+// testAllBooks();
 
 async function testInsertBook() {
-  const TITLE = "Harry Potter";
-  const AUTHOR = "J.K Rowling";
-  const YEAR = 1995;
-  const USER_ID = 1;
+  const TITLE = "Kurama";
+  const AUTHOR = "Naruto";
+  const YEAR = 1979;
+  const USER_ID = 2;
 
   const insertBook = await insertNewBook(TITLE, AUTHOR, YEAR, USER_ID);
-  console.log("✅INSERTED SUCCESSFULLY", insertBook[0]);
+  console.log("✅INSERTED SUCCESSFULLY", insertBook);
 }
-// testInsertBook();
+testInsertBook();
+
+async function testFindOneBook() {
+  const book = await findOneBook(2);
+  console.log("✅ Successfully found", book);
+}
+//testFindOneBook();
+async function testUpdateBook() {
+  const ID = 1;
+  const TITLE = "The Hobbit";
+  const AUTHOR = "J.R.R. Tolkien";
+  const YEAR = 1984;
+
+  const updated = await updateBook(ID, TITLE, AUTHOR, YEAR);
+
+  console.log("✅ SUCCESSFULLY", updated);
+}
+
+//testUpdateBook();
+
+async function testDeleteBook() {
+  const deleted = await deleteBookId(2);
+  console.log("✅ Successfully deleted", deleted);
+}
+
+//testDeleteBook();
