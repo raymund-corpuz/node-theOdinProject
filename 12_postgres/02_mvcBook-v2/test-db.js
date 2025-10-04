@@ -1,5 +1,6 @@
 const pool = require("./db/pool");
 const { createUser, findUserByEmail } = require("./models/userModels");
+const { getAllBooks, insertNewBook } = require("./models/bookModels");
 
 async function test() {
   try {
@@ -39,7 +40,7 @@ async function testFindEmail() {
   }
 }
 
-test();
+//test();
 // testCreate();
 //testFindEmail();
 
@@ -60,3 +61,22 @@ async function testRegister() {
 
   await registerPost(req, res);
 }
+
+async function testAllBooks() {
+  const all = await getAllBooks();
+  console.log(all);
+  process.exit();
+}
+
+testAllBooks();
+
+async function testInsertBook() {
+  const TITLE = "Harry Potter";
+  const AUTHOR = "J.K Rowling";
+  const YEAR = 1995;
+  const USER_ID = 1;
+
+  const insertBook = await insertNewBook(TITLE, AUTHOR, YEAR, USER_ID);
+  console.log("✅INSERTED SUCCESSFULLY", insertBook[0]);
+}
+// testInsertBook();
