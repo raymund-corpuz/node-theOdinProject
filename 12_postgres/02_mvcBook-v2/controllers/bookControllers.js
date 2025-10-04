@@ -26,7 +26,16 @@ function showForm(req, res) {
 }
 
 // create book
-async function
+async function createNewBook(req, res) {
+  try {
+    const { title, author, year } = req.body;
+    const userId = req.session.user.id;
+    await insertNewBook(title, author, year, userId);
+    res.redirect("/books");
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
 
 // edit book
 
@@ -34,4 +43,4 @@ async function
 
 // delete book
 
-module.exports = { showAllBooks, showForm };
+module.exports = { showAllBooks, showForm, createNewBook };

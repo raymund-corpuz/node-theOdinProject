@@ -7,6 +7,16 @@
   </head>
   <body>
     <h2>Login</h2>
+    <p><a href="/auth/register">Back to Registration Form</a></p>
+
+    <% if (errors && errors.length > 0) { %>
+    <ul style="color: red">
+      <% errors.forEach(err => { %>
+      <li><%= err.msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
+
     <form method="POST" action="/auth/login">
       <input type="email" name="email" placeholder="Enter your Email Address" />
       <input

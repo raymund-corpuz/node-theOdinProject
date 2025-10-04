@@ -71,11 +71,7 @@ async function registerPost(req, res) {
       email: user.email,
     };
 
-    return res
-      .status(201)
-      .json({ message: "User registered successfully", user });
-
-    //res.render("login");
+    res.redirect("/auth/login");
   } catch (error) {
     console.error("Error occured: ", error.message);
   }
@@ -123,8 +119,10 @@ async function loginPost(req, res) {
 
     req.session.user = {
       id: user.id,
+      username: user.username,
       email: user.email,
     };
+    console.log("👉 Session after login:", req.session);
 
     res.redirect("/books");
   } catch (error) {
