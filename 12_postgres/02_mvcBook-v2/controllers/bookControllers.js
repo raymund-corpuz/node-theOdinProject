@@ -62,7 +62,17 @@ async function updateBookId(req, res) {
 // delete book
 async function bookDelete(req, res) {
   try {
-    await deleteBookId(req.params.id);
+    // await deleteBookId(req.params.id);
+    // res.redirect("/books");
+
+    const { id } = req.params;
+    const result = await deleteBookId(id);
+
+    // If deleteBookId returns something like rowCount or rows
+    if (result.rowCount === 0) {
+      return res.status(404).send("⚠️ Book not found");
+    }
+
     res.redirect("/books");
   } catch (error) {
     console.error("❌ Error occured :", error.message);

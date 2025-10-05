@@ -33,11 +33,13 @@ async function updateBook(id, title, author, year) {
 
 //delete book
 async function deleteBookId(id) {
-  const { rows } = await pool.query(
-    "DELETE FROM books WHERE id = $1 RETURNING",
-    [id]
-  );
-  return rows[0];
+  // const { rows } = await pool.query(
+  //   "DELETE FROM books WHERE id = $1 RETURNING",
+  //   [id]
+  // );
+  // return rows[0];
+  const result = await pool.query("DELETE FROM books WHERE id = $1", [id]);
+  return result; // This includes rowCount
 }
 
 //export
