@@ -11,8 +11,9 @@
 
     <% books.forEach((book)=>{%>
     <h3><%= book.title %></h3>
-    <p><%= book.author %></p>
-    <p><%= book.year%></p>
+    <span><%= book.author %></span> | <span><%= book.year%></span> |
+    <span><a href="/books/edit/<%= book.id%>">edit</a></span> |
+    <span><a href="/books/delte/<%= book.id%>">delete</a></span>
     <% }) %>
   </body>
 </html>

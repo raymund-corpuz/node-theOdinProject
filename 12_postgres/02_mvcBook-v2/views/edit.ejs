@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book - Edit</title>
+  </head>
+  <body>
+    <h2>Book Edit</h2>
+    <form method="POST" action="/books/update/<%= book.id%>?_method=PUT">
+      <input
+        type="text"
+        name="title"
+        placeholder="Enter book title"
+        value="<%= book.title%>"
+      />
+      <br />
+      <input
+        type="text"
+        name="author"
+        placeholder="Enter author name"
+        value="<%= book.author%>"
+      /><br />
+      <input
+        type="text"
+        name="year"
+        placeholder="Enter year publish"
+        value="<%= book.year%>"
+      />
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

@@ -3,6 +3,7 @@ const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const bookRoutes = require("./routes/bookRoutes");
 const session = require("express-session");
+const methodOverride = require("method-override");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -21,6 +22,7 @@ app.use(
     cookie: { maxAge: 3600000 }, // Session cookie expiration in milliseconds (e.g., 1 hour)
   })
 );
+app.use(methodOverride("_method"));
 
 function isAuth(req, res, next) {
   if (!req.session.user) {

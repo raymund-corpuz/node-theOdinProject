@@ -37,10 +37,43 @@ async function createNewBook(req, res) {
   }
 }
 
-// edit book
+// render book
+async function editBook(req, res) {
+  try {
+    const book = await findOneBook(req.params.id);
+    res.render("edit", { book: book });
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
 
 // update book
+async function updateBookId(req, res) {
+  try {
+    const { title, author, year } = req.body;
+    await updateBook(req.params.id, title, author, year);
+
+    res.redirect("/books");
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
 
 // delete book
+async function bookDelete(req, res) {
+  try {
+    await deleteBookId(req.params.id);
+    res.redirect("/books");
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
 
-module.exports = { showAllBooks, showForm, createNewBook };
+module.exports = {
+  showAllBooks,
+  showForm,
+  createNewBook,
+  updateBookId,
+  editBook,
+  bookDelete,
+};

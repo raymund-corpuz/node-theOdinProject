@@ -4,8 +4,14 @@ const router = express.Router();
 
 router.get("/books", bookControllers.showAllBooks);
 
-router.get("/form", bookControllers.showForm);
+router.get("/books/new", bookControllers.showForm);
 
-router.post("/form", bookControllers.createNewBook);
+router.post("/books/new", bookControllers.createNewBook);
+
+router.get("/books/edit/:id", bookControllers.editBook);
+
+router.put("/books/update/:id", bookControllers.updateBookId);
+
+router.get("books/delete/:id", bookControllers.bookDelete);
 
 module.exports = router;
