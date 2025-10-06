@@ -6,7 +6,13 @@ const {
   deleteCategory,
   createCategory,
 } = require("./models/categoryModels");
-const { getAllItems, getOneItem, createItem } = require("./models/itemModels");
+const {
+  getAllItems,
+  getOneItem,
+  createItem,
+  updateItem,
+  deleteItem,
+} = require("./models/itemModels");
 
 async function testDB() {
   try {
@@ -28,7 +34,6 @@ async function testCategories() {
     console.error("❌ Error occured :", error.message);
   }
 }
-
 //testCategories();
 async function testOneCategory() {
   try {
@@ -115,3 +120,35 @@ async function testCreateItem() {
 }
 
 //testCreateItem();
+async function testUpdateItem() {
+  try {
+    const ID = 29;
+    const NAME = "ASUS";
+    const DESCRIPTION = "Gaming Laptop, 16-inch display";
+    const PRICE = 1890.99;
+    const QUANTITY = 7;
+    const USER_ID = 1;
+    const data = await updateItem(
+      NAME,
+      DESCRIPTION,
+      PRICE,
+      QUANTITY,
+      USER_ID,
+      ID
+    );
+    console.log("✅ UPDATED SUCCESSFULLY", data);
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
+//testUpdateItem();
+async function testDeleteItem() {
+  try {
+    const ID = 29;
+    const data = await deleteItem(ID);
+    console.log("✅ Successfully Deleted", data);
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
+//testDeleteItem();

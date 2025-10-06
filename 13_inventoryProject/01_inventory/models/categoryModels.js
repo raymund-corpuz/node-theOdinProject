@@ -7,7 +7,9 @@ async function getAllCategories() {
 }
 //get one category
 async function getOneCategory(id) {
-  const { rows } = await pool.query("SELECT * FROM categories");
+  const { rows } = await pool.query("SELECT * FROM categories WHERE id = $1", [
+    id,
+  ]);
   return rows[0];
 }
 //insert new category
