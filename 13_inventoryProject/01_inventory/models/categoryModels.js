@@ -10,6 +10,15 @@ async function getOneCategory(id) {
   const { rows } = await pool.query("SELECT * FROM categories");
   return rows[0];
 }
+//insert new category
+async function createCategory(name, description) {
+  const { rows } = await pool.query(
+    "INSERT INTO categories (name, description)VALUES ($1, $2) RETURNING *",
+    [name, description]
+  );
+  return rows[0];
+}
+
 //update category
 async function updateCategory(id, name, description) {
   const { rows } = await pool.query(
@@ -32,6 +41,7 @@ async function deleteCategory(id) {
 module.exports = {
   getAllCategories,
   getOneCategory,
+  createCategory,
   updateCategory,
   deleteCategory,
 };

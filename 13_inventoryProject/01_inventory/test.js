@@ -4,7 +4,9 @@ const {
   getOneCategory,
   updateCategory,
   deleteCategory,
+  createCategory,
 } = require("./models/categoryModels");
+const { getAllItems, getOneItem, createItem } = require("./models/itemModels");
 
 async function testDB() {
   try {
@@ -27,7 +29,7 @@ async function testCategories() {
   }
 }
 
-testCategories();
+//testCategories();
 async function testOneCategory() {
   try {
     const ID = 2;
@@ -38,7 +40,7 @@ async function testOneCategory() {
   }
 }
 
-//testOneCategory();
+// testOneCategory();
 async function testUpdateCategory() {
   try {
     const ID = 5;
@@ -63,3 +65,53 @@ async function testDeleteCategory() {
   }
 }
 // testDeleteCategory();
+
+async function testCreateCategory() {
+  try {
+    const NAME = "Monitors";
+    const DESCRIPTION = "Computer screens and display panels";
+    const data = await createCategory(NAME, DESCRIPTION);
+    console.log("✅ Successfully Created :", data);
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
+//testCreateCategory();
+
+async function testGetAllItems() {
+  try {
+    const data = await getAllItems();
+    console.log("✅ Successfully", data);
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
+
+testGetAllItems();
+
+async function testOneItem() {
+  try {
+    const ID = 19;
+    const data = await getOneItem(ID);
+    console.log("✅ Successful", data);
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
+//testOneItem();
+
+async function testCreateItem() {
+  try {
+    const NAME = "HP";
+    const DESCRIPTION = "Office Laptop, 16-inch display";
+    const PRICE = 1890.99;
+    const QUANTITY = 7;
+    const USER_ID = 1;
+    const data = await createItem(NAME, DESCRIPTION, PRICE, QUANTITY, USER_ID);
+    console.log("✅ Successfully Created", data);
+  } catch (error) {
+    console.error("❌ Error occured :", error.message);
+  }
+}
+
+//testCreateItem();
