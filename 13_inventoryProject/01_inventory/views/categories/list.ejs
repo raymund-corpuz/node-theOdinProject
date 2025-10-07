@@ -1,19 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
-  </head>
-  <body>
-    <h1><%= title %></h1>
+<%- include('../layouts/header', { title: 'Categories' }) %>
 
-    <ul>
-      <% if (categories.length > 0) { %> <% categories.forEach(cat => { %>
-      <li><%= cat.name %> - <%= cat.description %></li>
-      <% }) %> <% } else { %>
-      <li>No categories found</li>
-      <% } %>
-    </ul>
-  </body>
-</html>
+<h1>All Categories</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% categories.forEach(category => { %>
+    <tr>
+      <td><a href="/categories/<%= category.id %>"><%= category.name %></a></td>
+      <td><%= category.description %></td>
+      <td>
+        <a href="/categories/edit/<%= category.id %>">Edit</a> |
+        <form
+          action="/categories/<%= category.id %>?_method=DELETE"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<a href="/categories/form">+ Add Category</a>
+
+<%- include('../layouts/footer') %>

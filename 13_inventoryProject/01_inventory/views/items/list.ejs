@@ -1,0 +1,39 @@
+<%- include('../layouts/header', { title: 'All Items' }) %>
+
+<h1>All Items</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.forEach(item => { %>
+    <tr>
+      <td><a href="/items/<%= item.id %>"><%= item.name %></a></td>
+      <td><%= item.category_name %></td>
+      <td>$<%= item.price.toFixed(2) %></td>
+      <td><%= item.quantity %></td>
+      <td>
+        <a href="/items/<%= item.id %>/edit">Edit</a> |
+        <form
+          action="/items/<%= item.id %>?_method=DELETE"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<a href="/items/new">+ Add New Item</a>
+
+<%- include('../layouts/footer') %>

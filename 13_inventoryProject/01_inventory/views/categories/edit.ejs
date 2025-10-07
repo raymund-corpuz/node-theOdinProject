@@ -1,0 +1,23 @@
+<%- include('../layouts/header', { title }) %>
+
+<h1><%= title %></h1>
+
+<form action="/categories/update/<%=category.id%>" method="POST">
+  <label for="name">Name:</label><br />
+  <input
+    type="text"
+    id="name"
+    name="name"
+    required
+    value="<%=category.name%>"
+  /><br />
+
+  <label for="description">Description:</label><br />
+  <textarea id="description" name="description" required>
+<%= category ? category.description : '' %></textarea
+  ><br />
+
+  <button type="submit">Save</button>
+</form>
+
+<%- include('../layouts/footer') %>

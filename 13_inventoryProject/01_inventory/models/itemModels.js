@@ -35,10 +35,20 @@ async function deleteItem(id) {
   return rows[0];
 }
 
+//get items user_id
+async function getCategoryId(categoryId) {
+  const { rows } = await pool.query(
+    "SELECT * FROM items WHERE category_id =  $1",
+    [categoryId]
+  );
+  return rows;
+}
+
 module.exports = {
   getAllItems,
   getOneItem,
   createItem,
   updateItem,
   deleteItem,
+  getCategoryId,
 };
