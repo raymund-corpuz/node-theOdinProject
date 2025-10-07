@@ -78,6 +78,13 @@ async function categoryUpdate(req, res) {
 }
 
 //delete
+async function categoryDelete(req, res) {
+  const { id } = req.params;
+  await categoryModels.deleteCategory(id);
+
+  res.redirect("/categories");
+}
+
 module.exports = {
   showIndex,
   showAll,
@@ -86,4 +93,5 @@ module.exports = {
   categoryDetails,
   editForm,
   categoryUpdate,
+  categoryDelete,
 };

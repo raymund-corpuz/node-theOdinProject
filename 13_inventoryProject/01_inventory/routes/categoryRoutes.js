@@ -10,5 +10,6 @@ router.get("/categories", categoryControllers.showAll);
 router.get("/categories/:id", categoryControllers.categoryDetails);
 router.get("/categories/edit/:id", categoryControllers.editForm);
 router.post("/categories/update/:id", categoryControllers.categoryUpdate);
+router.post("/categories/:id", categoryControllers.categoryDelete);
 
 module.exports = router;
