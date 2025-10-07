@@ -20,7 +20,7 @@
       <td>$<%= item.price %></td>
       <td><%= item.quantity %></td>
       <td>
-        <a href="/items/<%= item.id %>/edit">Edit</a> |
+        <a href="/items/edit/<%= item.id %>">Edit</a> |
         <form
           action="/items/<%= item.id %>?_method=DELETE"
           method="POST"
