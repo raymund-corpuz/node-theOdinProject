@@ -21,8 +21,9 @@
       <td><%= item.quantity %></td>
       <td>
         <a href="/items/edit/<%= item.id %>">Edit</a> |
+
         <form
-          action="/items/<%= item.id %>?_method=DELETE"
+          action="/items/delete/<%= item.id %>"
           method="POST"
           style="display: inline"
         >

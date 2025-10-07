@@ -7,5 +7,6 @@ router.get("/new", itemControllers.showItemForm);
 router.post("/new", itemControllers.createItem);
 router.get("/edit/:id", itemControllers.editItemForm);
 router.post("/update/:id", itemControllers.itemUpdate);
+router.post("/delete/:id", itemControllers.itemDelete);
 
 module.exports = router;

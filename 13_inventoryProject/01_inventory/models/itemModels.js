@@ -2,7 +2,7 @@ const pool = require("../db/pool");
 
 //getAllItems,
 async function getAllItems() {
-  const { rows } = await pool.query("SELECT * FROM items");
+  const { rows } = await pool.query("SELECT * FROM items ORDER BY id ASC");
   return rows;
 }
 // getOneItem,

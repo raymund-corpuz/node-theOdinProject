@@ -1,15 +1,17 @@
 <%- include('layouts/header', { title: 'Home' }) %>
 
-<h1>Inventory Categories</h1>
+<div class="container">
+  <h1>Inventory Categories</h1>
 
-<ul>
-  <% categories.forEach(category => { %>
-  <li>
-    <a href="/categories/<%= category.id %>"> <%= category.name %> </a>
-  </li>
-  <% }) %>
-</ul>
+  <ul>
+    <% categories.forEach(category => { %>
+    <li>
+      <a href="/categories/<%= category.id %>"> <%= category.name %> </a>
+    </li>
+    <% }) %>
+  </ul>
 
-<a href="/categories/form" class="btn">+ Add New Category</a>
+  <a href="/categories/form" class="btn">+ Add New Category</a>
+</div>
 
 <%- include('layouts/footer') %>
