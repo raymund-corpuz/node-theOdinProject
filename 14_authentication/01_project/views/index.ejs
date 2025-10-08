@@ -5,6 +5,15 @@
     <title>Home</title>
   </head>
   <body>
-    <h1>hello world!</h1>
+    <h2>Please Log in</h2>
+
+    <form action="/log-in" method="POST">
+      <label for="username">Username</label>
+      <input type="text" name="username" placeholder="username" id="username" required>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password">
+      <button type="submit">Login</button>
+    </form>
+
   </body>
 </html>
