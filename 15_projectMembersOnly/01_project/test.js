@@ -35,6 +35,12 @@ async function testGetUsername() {
   }
 }
 
+async function testGetById() {
+  const data = await userModels.getUserById("2");
+  console.log("✅ Get By Id", data);
+}
+
 //testUsers();
 //testCreateUser();
-testGetUsername();
+// testGetUsername();
+testGetById();
