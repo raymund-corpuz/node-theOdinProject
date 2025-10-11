@@ -7,17 +7,10 @@ async function showAllUsers() {
 }
 
 //createUser
-async function createUser(
-  first_name,
-  last_name,
-  username,
-  password,
-  membership_status,
-  is_admin
-) {
+async function createUser(first_name, last_name, username, password) {
   const { rows } = await pool.query(
-    "INSERT INTO users (first_name, last_name, username, password, membership_status, is_admin) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *",
-    [first_name, last_name, username, password, membership_status, is_admin]
+    "INSERT INTO users (first_name, last_name, username, password, membership_status, is_admin) VALUES ($1,$2,$3,$4,false, false) RETURNING *",
+    [first_name, last_name, username, password]
   );
   return rows[0];
 }
