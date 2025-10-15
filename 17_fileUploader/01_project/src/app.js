@@ -5,6 +5,8 @@ const passport = require("passport");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const uploadRoutes = require("./routes/uploadRoutes");
+const upload = require("./middleware/upload");
 
 const app = express();
 
@@ -25,6 +27,8 @@ app.use(
 //Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use("/api", uploadRoutes);
 
 //Routes
 app.get("/", (req, res) => {
