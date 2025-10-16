@@ -79,10 +79,12 @@ const uploadFile = async (req, res) => {
 
     fs.unlinkSync(filePath); // remove local file after upload
 
-    res.status(200).json({
-      message: "File uploaded successfully!",
-      url: result.secure_url,
-    });
+    // res.status(200).json({
+    //   message: "File uploaded successfully!",
+    //   url: result.secure_url,
+    // });
+    // res.render("result", { imageUrl: result.secure_url });
+    res.render("result", { title: "Upload Result", url: result.secure_url });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

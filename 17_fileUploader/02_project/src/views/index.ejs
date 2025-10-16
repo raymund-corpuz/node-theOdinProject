@@ -1,0 +1,15 @@
+<div class="card shadow p-4">
+  <h4 class="mb-3 text-center">Upload File to Cloudinary</h4>
+
+  <form
+    action="/api/upload"
+    method="POST"
+    enctype="multipart/form-data"
+    class="mb-3"
+  >
+    <div class="mb-3">
+      <input type="file" name="file" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Upload</button>
+  </form>
+</div>

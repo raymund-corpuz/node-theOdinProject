@@ -33,8 +33,7 @@
 
 // =========== Re-Create ================== //
 require("dotenv").config(); // correct
-console.log("Cloudinary Key:", process.env.CLOUDINARY_API_KEY);
-
+const path = require("path");
 const express = require("express"); //c
 const session = require("express-session"); //c
 const passport = require("passport"); //c
@@ -42,12 +41,20 @@ const { PrismaSessionStore } = require("@quixo3/prisma-session-store"); //c
 const { PrismaClient } = require("@prisma/client"); //c
 const prisma = new PrismaClient(); //C
 const uploadRoutes = require("./routes/uploadRoutes");
+const expressLayouts = require("express-ejs-layouts");
 
 const app = express(); //c
+
+//ejs
+app.use(expressLayouts);
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.set("layout", "layout");
 
 //middleware
 app.use(express.json()); //c
 app.use(express.urlencoded({ extended: true })); //c
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   session({
@@ -71,8 +78,9 @@ app.use(passport.session()); //c
 app.use("/api", uploadRoutes);
 
 //Routes
-app.get("/", (req, res) => {
-  res.send("Welcome to the File uploader");
-});
+// app.get("/", (req, res) => {
+//   res.send("Welcome to the File uploader");
+// });
+app.get("/", uploadRoutes);
 
 module.exports = app;
