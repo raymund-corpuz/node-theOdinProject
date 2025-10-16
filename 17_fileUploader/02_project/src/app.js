@@ -33,12 +33,15 @@
 
 // =========== Re-Create ================== //
 require("dotenv").config(); // correct
+console.log("Cloudinary Key:", process.env.CLOUDINARY_API_KEY);
+
 const express = require("express"); //c
 const session = require("express-session"); //c
 const passport = require("passport"); //c
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store"); //c
 const { PrismaClient } = require("@prisma/client"); //c
 const prisma = new PrismaClient(); //C
+const uploadRoutes = require("./routes/uploadRoutes");
 
 const app = express(); //c
 
@@ -65,6 +68,7 @@ app.use(
 //passport
 app.use(passport.initialize()); //c
 app.use(passport.session()); //c
+app.use("/api", uploadRoutes);
 
 //Routes
 app.get("/", (req, res) => {
